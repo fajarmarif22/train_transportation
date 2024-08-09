@@ -1,0 +1,66 @@
+<odoo>
+  <record id="train_city_1" model="train.city">
+      <field name="name">New York</field>
+      <field name="code">NY</field>
+  </record>
+
+  <record id="train_city_2" model="train.city">
+      <field name="name">Los Angeles</field>
+      <field name="code">LA</field>
+  </record>
+
+  <record id="train_station_1" model="train.station">
+      <field name="name">Grand Central Station</field>
+      <field name="code">GCS</field>
+      <field name="city_id" ref="train_city_1"/>
+      <field name="address">89 E 42nd St, New York, NY 10017</field>
+  </record>
+
+  <record id="train_station_2" model="train.station">
+      <field name="name">Union Station</field>
+      <field name="code">US</field>
+      <field name="city_id" ref="train_city_2"/>
+      <field name="address">800 N Alameda St, Los Angeles, CA 90012</field>
+  </record>
+
+  <record id="train_1" model="train.train">
+      <field name="name">Kereta Ekspres</field>
+      <field name="code">ET-001</field>
+      <field name="capacity">200</field>
+      <field name="state">ready</field>
+      <field name="active" eval="True"/>
+  </record>
+
+  <record id="train_2" model="train.train">
+      <field name="name">Kereta Lokal</field>
+      <field name="code">LT-002</field>
+      <field name="capacity">100</field>
+      <field name="state">not_ready</field>
+      <field name="active" eval="True"/>
+  </record>
+
+  <record id="train_schedule_1" model="train.schedule">
+    <field name="code">TRN/2024/08/10/001</field>
+    <field name="origin_id" ref="train_station_1"/>
+    <field name="destination_id" ref="train_station_2"/>
+    <field name="schedule_time">2024-08-10 09:00:00</field>
+    <field name="duration">2.5</field>
+    <field name="train_id" ref="train_1"/>
+</record>
+
+<record id="train_schedule_2" model="train.schedule">
+    <field name="code">TRN/2024/08/10/002</field>
+    <field name="origin_id" ref="train_station_2"/>
+    <field name="destination_id" ref="train_station_1"/>
+    <field name="schedule_time">2024-08-10 12:00:00</field>
+    <field name="duration">1.5</field>
+    <field name="train_id" ref="train_2"/>
+</record>
+
+<record id="seq_train_schedule" model="ir.sequence">
+  <field name="name">Train Schedule</field>
+  <field name="code">train.schedule.code</field>
+  <field name="prefix">TRN/</field>
+  <field name="padding">3</field>
+</record>
+</odoo>

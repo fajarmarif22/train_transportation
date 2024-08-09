@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_train_city,train.city,model_train_city,,1,1,1,1
+access_train_station,train.station,model_train_station,,1,1,1,1
+access_train_train,train.train,model_train_train,,1,1,1,1
+access_train_schedule,train.schedule,model_train_schedule,,1,1,1,1

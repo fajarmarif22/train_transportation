@@ -1,0 +1,126 @@
+<odoo>
+  <data>
+
+    
+    <record id="action_train" model="ir.actions.act_window">
+      <field name="name">Train</field>
+          <field name="res_model">train.train</field>
+          <field name="view_mode">tree,form</field>
+      </record>
+
+      <record id="action_schedule" model="ir.actions.act_window">
+        <field name="name">Schedule</field>
+        <field name="res_model">train.schedule</field>
+        <field name="view_mode">tree,form,calendar</field>
+      </record>
+      
+      <record id="view_train_tree" model="ir.ui.view">
+        <field name="name">train.train.tree</field>
+        <field name="model">train.train</field>
+        <field name="arch" type="xml">
+          <tree string="Train">
+            <field name="code" string="Code"/>
+            <field name="name" string="Name"/>
+                <field name="state" string="Status"/>
+                <field name="capacity" string="Capacity"/>
+            </tree>
+        </field>
+      </record>
+
+      
+      <record id="action_train_city" model="ir.actions.act_window">
+        <field name="name">City</field>
+        <field name="res_model">train.city</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+      <menuitem id="menu_config_city" name="City" parent="menu_configurations" action="action_train_city" sequence="1"/>
+
+      <record id="action_train_station" model="ir.actions.act_window">
+        <field name="name">Station</field>
+          <field name="res_model">train.station</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_config_station" name="Station" parent="menu_configurations" action="action_train_station" sequence="2"/>
+        
+        <record id="action_passenger" model="ir.actions.act_window">
+          <field name="name">Passenger</field>
+          <field name="res_model">train.passenger</field>
+          <field name="view_mode">tree,form</field>
+          <field name="domain">[('train_id.state', '=', 'passenger')]</field>
+          <field name="context">{'default_train_id.state': 'passenger'}</field>
+        </record>
+        
+        <record id="action_machinist" model="ir.actions.act_window">
+          <field name="name">Machinist</field>
+          <field name="res_model">train.machinist</field>
+          <field name="view_mode">tree,form</field>
+          <field name="domain">[('train_id.state', '=', 'machinist')]</field>
+          <field name="context">{'default_train_id.state': 'machinist'}</field>
+        </record>
+        
+        <record id="view_train_schedule_tree" model="ir.ui.view">
+          <field name="name">train.schedule.tree</field>
+          <field name="model">train.schedule</field>
+          <field name="arch" type="xml">
+            <tree string="Train Schedule">
+                <field name="code"/>
+                <field name="origin_id" string="Origin" />
+                <field name="destination_id" string="Destination" />
+                <field name="schedule_time" string="Schedule Time"/>
+                <field name="duration" string="Duration"/>
+              </tree>
+        </field>
+      </record>
+      <record id="view_train_schedule_calendar" model="ir.ui.view">
+        <field name="name">train.schedule.calendar</field>
+        <field name="model">train.schedule</field>
+        <field name="arch" type="xml">
+          <calendar string="Train Schedule" date_start="schedule_time" date_stop="arrival_time">
+            <field name="code"/>
+            <field name="origin_id"/>
+            <field name="destination_id"/>
+            <field name="duration"/>
+          </calendar>
+          </field>
+        </record>
+      <record id="view_train_schedule_wizard" model="ir.ui.view">
+        <field name="name">train.schedule.wizard.form</field>
+        <field name="model">train.schedule.wizard</field>
+        <field name="arch" type="xml">
+          <form string="Add Train Schedules">
+                <group>
+                  <field name="train_id"/>
+                </group>
+                <field name="schedule_lines">
+                  <tree editable="bottom">
+                    <field name="origin_id"/>
+                        <field name="destination_id"/>
+                        <field name="schedule_time"/>
+                        <field name="duration"/>
+                      </tree>
+                </field>
+                <footer>
+                    <button string="Add Schedules" type="object" name="add_schedules" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+      </record>
+
+      <record id="action_train_schedule_wizard" model="ir.actions.act_window">
+        <field name="name">Add Train Schedules</field>
+        <field name="res_model">train.schedule.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+      </record>
+
+      <menuitem id="menu_config_machinist" name="Machinist" parent="menu_configurations" action="action_machinist" sequence="4"/>
+      <menuitem id="menu_config_passenger" name="Passenger" parent="menu_configurations" action="action_passenger" sequence="3"/>
+      <menuitem id="menu_train" name="Train" sequence="1"/>
+      <menuitem id="menu_train_train" name="Train" parent="menu_train" action="action_train" sequence="1"/>
+      <menuitem id="menu_train_schedule" name="Schedule" parent="menu_train" action="action_schedule" sequence="2"/>
+      <menuitem id="menu_configurations" name="Configurations" sequence="2"/>      
+      <menuitem id="menu_add_train_schedule" name="Add Train Schedule" action="action_train_schedule_wizard" parent="menu_train" sequence="3"/>
+
+    </data>
+  </odoo>
